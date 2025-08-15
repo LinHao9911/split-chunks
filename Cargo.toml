@@ -1,0 +1,41 @@
+[workspace]
+members  = ["crates/*"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+
+[workspace.dependencies]
+rspack_cacheable   = { version = "=0.5.0-beta.0" }
+rspack_collections = { version = "=0.5.0-beta.0" }
+rspack_core  = { version = "=0.5.0-beta.0" }
+rspack_error = { version = "=0.5.0-beta.0" }
+rspack_hook  = { version = "=0.5.0-beta.0" }
+
+async-trait    = { version = "0.1" }
+rspack_sources = { version = "0.4.8" }
+
+rspack_binding_build          = { version = "=0.5.0-beta.0" }
+rspack_binding_builder        = { version = "=0.5.0-beta.0" }
+rspack_binding_builder_macros = { version = "=0.5.0-beta.0" }
+
+napi        = { version = "=3.2.2" }
+napi-derive = { version = "=3.2.2" }
+
+
+# Copied from https://github.com/web-infra-dev/rspack/blob/main/Cargo.toml
+
+[profile.dev]
+codegen-units = 16
+debug         = 2
+incremental   = true
+panic         = "abort"
+
+[profile.release]
+codegen-units = 1
+debug         = false
+# Performs “fat” LTO which attempts to perform optimizations across all crates within the dependency graph.
+lto       = "fat"
+opt-level = 3
+panic     = "abort"
+strip     = true
