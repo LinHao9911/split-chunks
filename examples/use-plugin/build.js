@@ -1,6 +1,6 @@
 const path = require('node:path');
 
-const rspack = require('@rspack-template/core');
+const rspack = require('@rspack-template/test-split-chunk-native-plugin');
 
 const compiler = rspack({
   context: __dirname,
