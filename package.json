@@ -20,8 +20,8 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@rspack/core": "1.5.0-beta.0",
-    "@rspack-template/binding": "workspace:*"
+    "@rspack/core": "1.4.10",
+    "@rspack-template/test-split-chunk-native-plugin-binding": "workspace:*"
   },
   "devDependencies": {
     "@taplo/cli": "^0.7.0",

@@ -2,6 +2,6 @@
   "name": "plugin",
   "private": true,
   "dependencies": {
-    "@rspack-template/core": "workspace:*"
+    "@rspack-template/test-split-chunk-native-plugin": "workspace:*"
   }
 }
