@@ -1,6 +1,6 @@
 {
   "name": "@rspack-template/test-split-chunk-native-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "packageManager": "pnpm@10.14.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
