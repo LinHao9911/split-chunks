@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "build": "pnpm run --filter @rspack-template/binding build",
+    "build": "pnpm run --filter @rspack-template/test-split-chunk-native-plugin-binding build",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
