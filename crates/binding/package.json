@@ -1,15 +1,6 @@
 {
-  "name": "@rspack-template/binding",
+  "name": "@rspack-template/test-split-chunk-native-plugin-binding",
   "version": "0.0.3",
-  "homepage": "https://github.com/rspack-contrib/rspack-binding-template",
-  "bugs": {
-    "url": "https://github.com/rspack-contrib/rspack-binding-template/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rspack-contrib/rspack-binding-template.git",
-    "directory": "crates/binding"
-  },
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
