@@ -20,7 +20,7 @@ impl MyBannerPlugin {
 
 #[plugin_hook(CompilationProcessAssets for MyBannerPlugin, stage = Compilation::PROCESS_ASSETS_STAGE_ADDITIONS, tracing = false)]
 async fn process_assets(&self, compilation: &mut Compilation) -> Result<()> {
-  let asset = compilation.assets_mut().get_mut("main.js");
+  let asset = compilation.assets_mut().get_mut("bundle_core_features.js");
   if let Some(asset) = asset {
     let original_source = asset.get_source().cloned();
     asset.set_source(Some(Arc::new(ConcatSource::new([
