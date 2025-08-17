@@ -29,9 +29,14 @@ jobs:
     with:
       napi-build-command: pnpm build --release
 
-  output:
-    name: Upload Artifact
-    uses: actions/upload-artifact@v4
-    with:
-      name: build-output  # 工件名称
-      path: crates/binding/         # 要上传的目录或文件
+  upload_artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4  # 检出代码
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-outputs
+          path: crates/binding/**/*  # 上传 dist 目录下所有文件（含子目录）
+          retention-days: 7  # 工件保留7天
