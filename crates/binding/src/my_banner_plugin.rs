@@ -1,6 +1,8 @@
 use std::sync::Arc;
 
-use rspack_core::{ApplyContext, Compilation, CompilationProcessAssets, Plugin};
+use rspack_core::{
+  ApplyContext, Compilation, CompilationProcessAssets, CompilerOptions, Plugin, PluginContext,
+};
 use rspack_error::Result;
 use rspack_hook::{plugin, plugin_hook};
 use rspack_sources::{ConcatSource, RawSource, SourceExt};
@@ -20,7 +22,7 @@ impl MyBannerPlugin {
 
 #[plugin_hook(CompilationProcessAssets for MyBannerPlugin, stage = Compilation::PROCESS_ASSETS_STAGE_ADDITIONS, tracing = false)]
 async fn process_assets(&self, compilation: &mut Compilation) -> Result<()> {
-  let asset = compilation.assets_mut().get_mut("bundle_core_features.js");
+  let asset = compilation.assets_mut().get_mut("main.js");
   if let Some(asset) = asset {
     let original_source = asset.get_source().cloned();
     asset.set_source(Some(Arc::new(ConcatSource::new([
@@ -37,8 +39,13 @@ impl Plugin for MyBannerPlugin {
     "MyBannerPlugin"
   }
 
-  fn apply(&self, ctx: &mut ApplyContext) -> rspack_error::Result<()> {
+  fn apply(
+    &self,
+    ctx: PluginContext<&mut ApplyContext>,
+    _options: &CompilerOptions,
+  ) -> rspack_error::Result<()> {
     ctx
+      .context
       .compilation_hooks
       .process_assets
       .tap(process_assets::new(self));

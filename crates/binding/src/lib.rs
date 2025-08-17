@@ -1,5 +1,5 @@
-mod loader;
-mod plugin;
+mod my_banner_plugin;
+mod add_footer_comment_plugin;
 
 use napi::bindgen_prelude::*;
 use rspack_binding_builder_macros::register_plugin;
@@ -28,13 +28,14 @@ register_plugin!("MyBannerPlugin", |_env: Env, options: Unknown<'_>| {
     .into_utf8()?
     .as_str()?
     .to_string();
-  Ok(Box::new(plugin::MyBannerPlugin::new(banner)) as BoxPlugin)
+  Ok(Box::new(my_banner_plugin::MyBannerPlugin::new(banner)) as BoxPlugin)
 });
 
-// Export a plugin named `MyBannerLoaderPlugin`.
-register_plugin!(
-  "MyBannerLoaderPlugin",
-  |_env: Env, _options: Unknown<'_>| {
-    Ok(Box::new(loader::MyBannerLoaderPlugin::new()) as BoxPlugin)
-  }
-);
+register_plugin!("AddFooterCommentPlugin", |_env: Env, options: Unknown<'_>| {
+  let comment = options
+    .coerce_to_string()?
+    .into_utf8()?
+    .as_str()?
+    .to_string();
+  Ok(Box::new(add_footer_comment_plugin::AddFooterCommentPlugin::new(comment)) as BoxPlugin)
+});

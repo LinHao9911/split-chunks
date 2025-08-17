@@ -1,7 +1,15 @@
 {
-  "name": "@rspack-template/test-split-chunk-native-plugin",
-  "version": "0.0.4",
-  "packageManager": "pnpm@10.14.0",
+  "name": "@rspack-template/core",
+  "version": "0.0.3",
+  "homepage": "https://github.com/rspack-contrib/rspack-binding-template",
+  "bugs": {
+    "url": "https://github.com/rspack-contrib/rspack-binding-template/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rspack-contrib/rspack-binding-template.git"
+  },
+  "packageManager": "pnpm@10.13.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "exports": {
@@ -16,12 +24,12 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "build": "pnpm run --filter @rspack-template/test-split-chunk-native-plugin-binding build",
+    "build": "pnpm run --filter @rspack-template/binding build",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@rspack/core": "1.4.10",
-    "@rspack-template/test-split-chunk-native-plugin-binding": "workspace:*"
+    "@rspack-template/binding": "workspace:*"
   },
   "devDependencies": {
     "@taplo/cli": "^0.7.0",
