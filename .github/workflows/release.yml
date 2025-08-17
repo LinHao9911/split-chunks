@@ -23,82 +23,82 @@ env:
   DEBUG: napi:*
 
 jobs:
-  build:
-    name: Build
-    uses: rspack-contrib/rspack-toolchain/.github/workflows/build.yml@v1
-    with:
-      napi-build-command: pnpm build --release
+  # build:
+  #   name: Build
+  #   uses: rspack-contrib/rspack-toolchain/.github/workflows/build.yml@v1
+  #   with:
+  #     napi-build-command: pnpm build --release
 
-  release:
-    runs-on: ubuntu-latest
-    environment: npm
-    name: Release
-    permissions:
-      contents: write
-      id-token: write
-    needs: build
+  # release:
+  #   runs-on: ubuntu-latest
+  #   environment: npm
+  #   name: Release
+  #   permissions:
+  #     contents: write
+  #     id-token: write
+  #   needs: build
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Display release mode
-        run: |
-          echo "🚀 Release Configuration:"
-          echo "  - Dry-run mode: ${{ inputs.dry-run }}"
-          echo "  - NPM tag: ${{ inputs.npm-tag || 'latest' }}"
-          if [ "${{ inputs.dry-run }}" == "true" ]; then
-            echo "  - ⚠️  This is a DRY RUN - no packages will be published"
-          else
-            echo "  - 📦 This will PUBLISH packages to npm"
-          fi
+  #     - name: Display release mode
+  #       run: |
+  #         echo "🚀 Release Configuration:"
+  #         echo "  - Dry-run mode: ${{ inputs.dry-run }}"
+  #         echo "  - NPM tag: ${{ inputs.npm-tag || 'latest' }}"
+  #         if [ "${{ inputs.dry-run }}" == "true" ]; then
+  #           echo "  - ⚠️  This is a DRY RUN - no packages will be published"
+  #         else
+  #           echo "  - 📦 This will PUBLISH packages to npm"
+  #         fi
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '22'
 
-      - name: Enable corepack
-        run: corepack enable
+  #     - name: Enable corepack
+  #       run: corepack enable
 
-      - name: Setup pnpm
-        run: corepack prepare
+  #     - name: Setup pnpm
+  #       run: corepack prepare
 
-      - name: Cache pnpm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+  #     - name: Cache pnpm dependencies
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.pnpm-store
+  #         key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-pnpm-
 
-      - name: Install dependencies
-        run: pnpm install
+  #     - name: Install dependencies
+  #       run: pnpm install
 
-      - name: Get NAPI info
-        id: napi-info
-        uses: rspack-contrib/rspack-toolchain/get-napi-info@v1
+  #     - name: Get NAPI info
+  #       id: napi-info
+  #       uses: rspack-contrib/rspack-toolchain/get-napi-info@v1
 
-      - name: Download rspack binding
-        uses: rspack-contrib/rspack-toolchain/download-rspack-binding@v1
-        with:
-          path: ${{ steps.napi-info.outputs.binding-directory }}/artifacts
+  #     - name: Download rspack binding
+  #       uses: rspack-contrib/rspack-toolchain/download-rspack-binding@v1
+  #       with:
+  #         path: ${{ steps.napi-info.outputs.binding-directory }}/artifacts
 
-      - name: List artifacts
-        run: ls -R artifacts
-        working-directory: ${{ steps.napi-info.outputs.binding-directory }}
+  #     - name: List artifacts
+  #       run: ls -R artifacts
+  #       working-directory: ${{ steps.napi-info.outputs.binding-directory }}
 
-      - name: Create npm dirs
-        run: pnpm napi create-npm-dirs
-        working-directory: ${{ steps.napi-info.outputs.binding-directory }}
+  #     - name: Create npm dirs
+  #       run: pnpm napi create-npm-dirs
+  #       working-directory: ${{ steps.napi-info.outputs.binding-directory }}
 
-      - name: Move artifacts
-        run: pnpm napi artifacts
-        working-directory: ${{ steps.napi-info.outputs.binding-directory }}
+  #     - name: Move artifacts
+  #       run: pnpm napi artifacts
+  #       working-directory: ${{ steps.napi-info.outputs.binding-directory }}
 
-      - name: List npm dirs
-        run: ls -R npm
-        working-directory: ${{ steps.napi-info.outputs.binding-directory }}
+  #     - name: List npm dirs
+  #       run: ls -R npm
+  #       working-directory: ${{ steps.napi-info.outputs.binding-directory }}
 
   upload_artifacts:
     runs-on: ubuntu-latest
@@ -106,9 +106,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4  # 检出代码
 
+      - name: List files
+        run: ls -R $GITHUB_WORKSPACE
+
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-outputs
-          path: ~/runner/work/split-chunks/split-chunks/crates/binding/artifacts/*
+          path: crates/binding/npm/**/*  # 上传 dist 目录下所有文件（含子目录）
           retention-days: 7  # 工件保留7天
