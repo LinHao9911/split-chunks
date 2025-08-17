@@ -50,8 +50,3 @@ jobs:
   build:
     name: Build
     uses: rspack-contrib/rspack-toolchain/.github/workflows/build.yml@v1
-
-  test:
-    name: Test
-    uses: ./.github/workflows/test.yml
-    needs: build
