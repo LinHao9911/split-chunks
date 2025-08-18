@@ -10,6 +10,8 @@ export declare class ExternalObject<T> {
 export declare function registerAddFooterCommentPlugin(): void
 
 export declare function registerMyBannerPlugin(): void
+
+export declare function registerSplitChunkShareModule(): void
 export declare class Assets {
 
 }

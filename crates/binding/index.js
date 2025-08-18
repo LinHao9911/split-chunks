@@ -395,6 +395,7 @@ if (!nativeBinding) {
 module.exports = nativeBinding
 module.exports.registerAddFooterCommentPlugin = nativeBinding.registerAddFooterCommentPlugin
 module.exports.registerMyBannerPlugin = nativeBinding.registerMyBannerPlugin
+module.exports.registerSplitChunkShareModule = nativeBinding.registerSplitChunkShareModule
 module.exports.Assets = nativeBinding.Assets
 module.exports.Assets = nativeBinding.Assets
 module.exports.AsyncDependenciesBlock = nativeBinding.AsyncDependenciesBlock
