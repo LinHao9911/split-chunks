@@ -106,27 +106,6 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: build-outputs
-          path: crates/binding/npm/**/*  # 上传 dist 目录下所有文件（含子目录）
-          retention-days: 7  # 工件保留7天
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-outputs-a
-          path: ${{ github.workspace }}/crates/binding/npm/**/*  # 上传 dist 目录下所有文件（含子目录）
-          retention-days: 7  # 工件保留7天
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-outputs-b
-          path: /home/runner/work/split-chunks/split-chunks/crates/binding/artifacts  # 上传 dist 目录下所有文件（含子目录）
-          retention-days: 7  # 工件保留7天
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
           name: build-outputs-g
           path: crates/binding/artifacts  # 上传 dist 目录下所有文件（含子目录）
           retention-days: 7  # 工件保留7天
